@@ -1,5 +1,6 @@
 ﻿using LionsEventTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace LionsEventTracker.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Users.Add(new User { Id = 1, FirstName = "Umesh", LastName = "Regmi", Email = "test@test.com", Password = "test" });
+                _context.Users.Add(new User { Id = 1, FirstName = "test", LastName = "Test", Email = "test@test.com", Password = "test" });
                 _context.SaveChanges();
             }
         }
@@ -48,10 +49,31 @@ namespace LionsEventTracker.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void SignUp(User user)
+        public IActionResult SignUp(User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userNameInDb = _context.Users.Single(u => u.UserName == user.UserName);
+            if(userNameInDb == null)
+            {
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                return new OkResult();
+            }
+            return BadRequest();
+           
+        }
+        public IActionResult LogIn(User user)
+        {
+            var userInDb = _context.Users.Single(u => u.UserName == user.UserName);
+            if(userInDb != null)
+            {
+                return Ok(userInDb);
+            }
+            return NotFound();
         }
 
         // PUT api/<controller>/5
