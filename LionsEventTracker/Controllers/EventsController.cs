@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LionsEventTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,7 +23,7 @@ namespace LionsEventTracker.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Events.Add(new Event { Id = 1, Name = "Holi", Date = DateTime.Now.Date, Time =  DateTime.Now.ToString("") });
+                _context.Events.Add(new Event { });
                 _context.SaveChanges();
             }
         }
@@ -40,20 +41,25 @@ namespace LionsEventTracker.Controllers
         [HttpGet("{id}", Name = "GetEventById")]
         public ActionResult<Event> GetEventById(int id)
         {
-            var evnt = _context.Events.Find(id);
-            if (evnt == null)
+            var eventUser = _context.Events.Include(x => x.eventUser).Where(x => x.Id == id).FirstOrDefault();
+            if (eventUser == null)
             {
                 return NotFound();
             }
-            return evnt;
+            return eventUser;
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void CreateEvent(Event evnt)
+        public void CreateEvent(Event eventUser)
         {
-            _context.Events.Add(evnt);
-            _context.SaveChanges();
+            _context.Events.Add(eventUser);
+            //evnt.eventUser.Add(new EventUser()
+            //{
+            //    eventId = evnt.Id,
+            //    userId = 6
+            //});     
+           _context.SaveChanges();
         }
 
         // PUT api/<controller>/5

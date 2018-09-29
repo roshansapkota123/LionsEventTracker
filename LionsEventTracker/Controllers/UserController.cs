@@ -1,10 +1,13 @@
 ﻿using LionsEventTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace LionsEventTracker.Controllers
 {
@@ -21,7 +24,7 @@ namespace LionsEventTracker.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Users.Add(new User { Id = 1, FirstName = "test", LastName = "Test", Email = "test@test.com", Password = "test" });
+                _context.Users.Add(new User { });
                 _context.SaveChanges();
             }
         }
@@ -29,22 +32,23 @@ namespace LionsEventTracker.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<User>> GetAllUser()
+        public async Task<ActionResult<List<User>>> GetAllUser()
         {
-            return _context.Users.ToList();
+            var user = await _context.Users.ToListAsync();
+            return Json(user);
         }
 
         // GET api/<controller>/5
 
         [HttpGet("{id}", Name = "GetUserById")]
-        public ActionResult<User> GetUserById(int id)
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            return user;
+            return Json(user);
         }
 
         // POST api/<controller>
@@ -57,15 +61,25 @@ namespace LionsEventTracker.Controllers
             }
 
             var userNameInDb = _context.Users.Single(u => u.UserName == user.UserName);
-            if(userNameInDb == null)
+            if (userNameInDb == null)
             {
                 _context.Users.Add(user);
                 _context.SaveChanges();
                 return new OkResult();
             }
             return BadRequest();
-           
+
         }
+        //[Route("addEvent")]
+        //[HttpPost("{id}/{eventId")]
+        //public IActionResult AddEvent(int id, int eventId)
+        //{
+        //    User dbUser = _context.eventUser.Where(x => x.id == id).Include(x => x.evnt).First();
+        //    Event dbEvent = _context.evnt.Where(x => x.id == eventId).First();
+        //    dbUser.events.Add(new Model.EventUser { events = dbEvent });
+        //    _context.SaveChanges();
+        //    return Json(dbUser);
+        //}
         public IActionResult LogIn(User user)
         {
             var userInDb = _context.Users.Single(u => u.UserName == user.UserName);

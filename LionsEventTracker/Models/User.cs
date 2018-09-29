@@ -8,6 +8,8 @@ namespace LionsEventTracker.Models
 {
     public class User
     {
+        //    internal object evnt;
+
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "First Name is required.")]
@@ -23,6 +25,6 @@ namespace LionsEventTracker.Models
         [Required(ErrorMessage = "UserName is required.")]
         public string UserName { get; set; }
 
-        public List<Event> Events { get; set; }
+        public List<EventUser> eventUser { get; set; }
     }
 }
