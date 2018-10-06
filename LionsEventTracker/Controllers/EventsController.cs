@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using LionsEventTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace LionsEventTracker.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class EventsController : Controller
     {
         private readonly DatabaseContext _context;
@@ -22,7 +23,7 @@ namespace LionsEventTracker.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Events.Add(new Event { Id = 1, Name = "Holi", Date = DateTime.Now.Date, Time =  DateTime.Now.ToString("") });
+                _context.Events.Add(new Event { });
                 _context.SaveChanges();
             }
         }
@@ -30,35 +31,57 @@ namespace LionsEventTracker.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Event>> GetAllEvent()
+        public ActionResult<List<Event>> Index()
         {
             return _context.Events.ToList();
         }
 
         // GET api/<controller>/5
-
-        [HttpGet("{id}", Name = "GetEventById")]
-        public ActionResult<Event> GetEventById(int id)
+   
+        [HttpGet("{id}")]
+        public ActionResult<Event> Index(int? id)
         {
-            var evnt = _context.Events.Find(id);
+            var evnt = _context.Events.Include(x => x.eventUsers).Where(x => x.Id == id).FirstOrDefault();
             if (evnt == null)
             {
                 return NotFound();
             }
             return evnt;
         }
-
+        // create event
         // POST api/<controller>
         [HttpPost]
-        public void CreateEvent(Event evnt)
+        public void Index(Event evnt)
         {
             _context.Events.Add(evnt);
             _context.SaveChanges();
         }
 
+        // POST api/<controller>
+        
+      // add user
+        [HttpPost]
+        [ActionName("Subscribe")]
+        public void Subscribe(int eventId, int userId)
+        {
+            var newXref = new EventUser()
+            {
+                eventId = eventId,
+                userId = userId
+            };
+
+            var foundEvent = _context.Events.Include(x => x.eventUsers).Where(x => x.Id == eventId).FirstOrDefault();
+            if (foundEvent.eventUsers == null)
+            {
+                foundEvent.eventUsers = new List<EventUser>();
+            }
+            foundEvent.eventUsers.Add(newXref);
+           _context.SaveChanges();
+        }
+
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Event evnt)
+        public IActionResult Index(int id, Event evnt)
         {
             var eventInDb = _context.Events.Find(id);
             if (eventInDb == null)
@@ -78,7 +101,7 @@ namespace LionsEventTracker.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Index(int id)
         {
             var evnt = _context.Events.Find(id);
             if (evnt == null)
