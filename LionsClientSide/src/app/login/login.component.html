@@ -1,0 +1,42 @@
+<div class="row">
+  <!-- <div class="col s5 offset-s3"> -->
+    <div class="card">
+      <div class="sm-jumbotron center-alignment">
+        <h2>Please log in </h2>
+      </div>
+
+      <form (ngSubmit)="logInUser($event) && f.form.valid" class="col s12 white" #f [noValidate]>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input name="UserName" type="text" class="validate" required>
+            <label for="UserName">UserName</label>
+            <span class="helper-text" data-error="Required Field!" data-success=""></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">vpn_key </i>
+            <input class="validate" type="password" name="Password" required>
+            <label>Password</label>
+            <span class="helper-text" data-error="Required Field!" data-success=""></span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s14">
+            <button [disabled]=" " class="btn-large btn-submit" type="submit" value="Log-In">Log-In</button>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s14">
+              <a [routerLink]="['/signup']"><button class="btn-large btn-submit" type="submit">
+                  Sign-Up</button> </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<!-- </div>
+ -->
