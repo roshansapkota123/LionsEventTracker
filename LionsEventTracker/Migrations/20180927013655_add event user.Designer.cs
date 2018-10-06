@@ -4,14 +4,16 @@ using LionsEventTracker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LionsEventTracker.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20180927013655_add event user")]
+    partial class addeventuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,8 +77,6 @@ namespace LionsEventTracker.Migrations
                     b.Property<string>("UserName")
                         .IsRequired();
 
-                    b.Property<byte[]>("salt");
-
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -84,13 +84,13 @@ namespace LionsEventTracker.Migrations
 
             modelBuilder.Entity("LionsEventTracker.Models.EventUser", b =>
                 {
-                    b.HasOne("LionsEventTracker.Models.Event", "Events")
-                        .WithMany("eventUsers")
+                    b.HasOne("LionsEventTracker.Models.Event", "events")
+                        .WithMany("users")
                         .HasForeignKey("eventId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("LionsEventTracker.Models.User", "Users")
-                        .WithMany("eventUsers")
+                    b.HasOne("LionsEventTracker.Models.User", "users")
+                        .WithMany("events")
                         .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
