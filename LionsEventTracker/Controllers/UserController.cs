@@ -84,7 +84,7 @@ namespace LionsEventTracker.Controllers
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
             password: pwd,
             salt: salt,
-            prf: KeyDerivationPrf.HMACSHA1,
+            prf: KeyDerivationPrf.HMACSHA256,
             iterationCount: 10000,
             numBytesRequested: 256 / 8));
 
@@ -122,7 +122,7 @@ namespace LionsEventTracker.Controllers
         //}
         public IActionResult LogIn([FromBody] User user)
         {
-            var userInDb = _context.Users.SingleOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
+            var userInDb = _context.Users.SingleOrDefault(u => u.UserName == user.UserName && u.Password == GetHashedPassword(user.Password, u.salt));
             if(userInDb != null)
             {
                 return Ok(userInDb);
