@@ -22,6 +22,6 @@ namespace LionsEventTracker.Models
         [Required(ErrorMessage = "Venue is required.")]
         public string Venue { get; set; }
 
-        public List<EventUser> eventUser { get; set; }
+        public List<EventUser> eventUsers { get; set; }
     }
 }

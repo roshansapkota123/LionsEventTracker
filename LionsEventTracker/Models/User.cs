@@ -22,9 +22,10 @@ namespace LionsEventTracker.Models
         [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        public byte[] salt { get; set; }
         [Required(ErrorMessage = "UserName is required.")]
         public string UserName { get; set; }
 
-        public List<EventUser> eventUser { get; set; }
+        public List<EventUser> eventUsers { get; set; }
     }
 }

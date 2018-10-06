@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace LionsEventTracker.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
         private readonly DatabaseContext _context;
@@ -52,7 +54,10 @@ namespace LionsEventTracker.Controllers
         }
 
         // POST api/<controller>
+        
         [HttpPost]
+        [ActionName("SignUp")]
+
         public IActionResult SignUp(User user)
         {
             if (!ModelState.IsValid)
@@ -60,16 +65,59 @@ namespace LionsEventTracker.Controllers
                 return BadRequest(ModelState);
             }
 
-            var userNameInDb = _context.Users.Single(u => u.UserName == user.UserName);
+            var userNameInDb = _context.Users.Single(u => u.UserName == user.UserName || u.Email == user.Email);
             if (userNameInDb == null)
             {
+                byte[] salt = new byte[128 / 8];
+                using (var rng = RandomNumberGenerator.Create())
+                {
+                    rng.GetBytes(salt);
+                }
+                
+                user.Password = this.GetHashedPassword(user.Password, salt);
+                user.salt = salt;
                 _context.Users.Add(user);
                 _context.SaveChanges();
                 return new OkResult();
             }
-            return BadRequest();
+            return BadRequest("Username or email already exists.");
 
         }
+
+        //salt => formula
+        public String GetHashedPassword(String pwd, byte[] salt)
+        {
+           
+
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            password: pwd,
+            salt: salt,
+            prf: KeyDerivationPrf.HMACSHA1,
+            iterationCount: 10000,
+            numBytesRequested: 256 / 8));
+
+            return hashed;
+        }
+
+        
+        //[HttpPost]
+        //[ActionName("AddEvent")]
+        //public void AddEvent(int userId, int eventId)
+        //{
+        //    var newEvent = new EventUser()
+        //    {
+        //        userId = userId,
+        //         eventId = eventId
+        //    };
+
+        //    var foundUser = _context.Users.Include(x => x.eventUsers).Where(x => x.Id == userId).FirstOrDefault();
+        //    if (foundUser.eventUsers == null)
+        //    {
+        //        foundUser.eventUsers = new List<EventUser>();
+        //    }
+        //    foundUser.eventUsers.Add(newEvent);
+        //    _context.SaveChanges();
+        //}
         //[Route("addEvent")]
         //[HttpPost("{id}/{eventId")]
         //public IActionResult AddEvent(int id, int eventId)
@@ -82,7 +130,7 @@ namespace LionsEventTracker.Controllers
         //}
         public IActionResult LogIn(User user)
         {
-            var userInDb = _context.Users.Single(u => u.UserName == user.UserName);
+            var userInDb = _context.Users.Single(u => u.UserName == user.UserName && u.Password == user.Password);
             if(userInDb != null)
             {
                 return Ok(userInDb);
@@ -92,7 +140,7 @@ namespace LionsEventTracker.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, User user)
+        public IActionResult Index(int id, User user)
         {
             var userInDb = _context.Users.Find(id);
             if (userInDb == null)
@@ -112,7 +160,7 @@ namespace LionsEventTracker.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Index(int id)
         {
             var user = _context.Users.Find(id);
             if (user == null)

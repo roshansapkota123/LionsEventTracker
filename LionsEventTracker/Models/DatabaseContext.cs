@@ -22,14 +22,14 @@ namespace LionsEventTracker.Models
                 .HasKey(t => new { t.userId, t.eventId });
 
             builder.Entity<EventUser>()
-                .HasOne(u => u.Events)
-                .WithMany(e => e.eventUser)
-                .HasForeignKey(f => f.eventId);
+                .HasOne(eu => eu.Users)
+                .WithMany(e => e.eventUsers)
+                .HasForeignKey(f => f.userId);
 
             builder.Entity<EventUser>()
-               .HasOne(u => u.Users)
-               .WithMany(e => e.eventUser)
-               .HasForeignKey(f => f.userId);
+               .HasOne(eu => eu.Events)
+               .WithMany(e => e.eventUsers)
+               .HasForeignKey(f => f.eventId);
         }
     }
 }
