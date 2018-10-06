@@ -50,14 +50,14 @@ namespace LionsEventTracker.Controllers
         [HttpPost]
         [ActionName("SignUp")]
 
-        public IActionResult SignUp(User user)
+        public IActionResult SignUp([FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var userNameInDb = _context.Users.Single(u => u.UserName == user.UserName || u.Email == user.Email);
+            var userNameInDb = _context.Users.SingleOrDefault(u => u.UserName == user.UserName || u.Email == user.Email);
             if (userNameInDb == null)
             {
                 byte[] salt = new byte[128 / 8];

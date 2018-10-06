@@ -29,13 +29,6 @@ export class LoginComponent {
            console.log(response);
          }
        );
-
-      /*
-      if ( Username === 'lion' && password === 'lion') {
-        this.router.navigate(['home']);
-      } else {
-        this.router.navigate(['login']);
-      } */
     }
     }
 
