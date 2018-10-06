@@ -1,13 +1,19 @@
 ﻿using LionsEventTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace LionsEventTracker.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
         private readonly DatabaseContext _context;
@@ -20,7 +26,7 @@ namespace LionsEventTracker.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Users.Add(new User { Id = 1, FirstName = "Umesh", LastName = "Regmi", Email = "test@test.com", Password = "test" });
+                _context.Users.Add(new User { });
                 _context.SaveChanges();
             }
         }
@@ -28,35 +34,113 @@ namespace LionsEventTracker.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<User>> GetAllUser()
+        public async Task<ActionResult<List<User>>> GetAllUser()
         {
-            return _context.Users.ToList();
+            var user = await _context.Users.ToListAsync();
+            return Json(user);
         }
 
         // GET api/<controller>/5
 
         [HttpGet("{id}", Name = "GetUserById")]
-        public ActionResult<User> GetUserById(int id)
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            return user;
+            return Json(user);
         }
 
         // POST api/<controller>
+        
         [HttpPost]
-        public void SignUp(User user)
+        [ActionName("SignUp")]
+
+        public IActionResult SignUp(User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userNameInDb = _context.Users.Single(u => u.UserName == user.UserName || u.Email == user.Email);
+            if (userNameInDb == null)
+            {
+                byte[] salt = new byte[128 / 8];
+                using (var rng = RandomNumberGenerator.Create())
+                {
+                    rng.GetBytes(salt);
+                }
+                
+                user.Password = this.GetHashedPassword(user.Password, salt);
+                user.salt = salt;
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                return new OkResult();
+            }
+            return BadRequest("Username or email already exists.");
+
+        }
+
+        //salt => formula
+        public String GetHashedPassword(String pwd, byte[] salt)
+        {
+           
+
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            password: pwd,
+            salt: salt,
+            prf: KeyDerivationPrf.HMACSHA1,
+            iterationCount: 10000,
+            numBytesRequested: 256 / 8));
+
+            return hashed;
+        }
+
+        
+        //[HttpPost]
+        //[ActionName("AddEvent")]
+        //public void AddEvent(int userId, int eventId)
+        //{
+        //    var newEvent = new EventUser()
+        //    {
+        //        userId = userId,
+        //         eventId = eventId
+        //    };
+
+        //    var foundUser = _context.Users.Include(x => x.eventUsers).Where(x => x.Id == userId).FirstOrDefault();
+        //    if (foundUser.eventUsers == null)
+        //    {
+        //        foundUser.eventUsers = new List<EventUser>();
+        //    }
+        //    foundUser.eventUsers.Add(newEvent);
+        //    _context.SaveChanges();
+        //}
+        //[Route("addEvent")]
+        //[HttpPost("{id}/{eventId")]
+        //public IActionResult AddEvent(int id, int eventId)
+        //{
+        //    User dbUser = _context.eventUser.Where(x => x.id == id).Include(x => x.evnt).First();
+        //    Event dbEvent = _context.evnt.Where(x => x.id == eventId).First();
+        //    dbUser.events.Add(new Model.EventUser { events = dbEvent });
+        //    _context.SaveChanges();
+        //    return Json(dbUser);
+        //}
+        public IActionResult LogIn(User user)
+        {
+            var userInDb = _context.Users.Single(u => u.UserName == user.UserName && u.Password == user.Password);
+            if(userInDb != null)
+            {
+                return Ok(userInDb);
+            }
+            return NotFound();
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, User user)
+        public IActionResult Index(int id, User user)
         {
             var userInDb = _context.Users.Find(id);
             if (userInDb == null)
@@ -76,7 +160,7 @@ namespace LionsEventTracker.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Index(int id)
         {
             var user = _context.Users.Find(id);
             if (user == null)

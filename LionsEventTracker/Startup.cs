@@ -27,9 +27,11 @@ namespace LionsEventTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(opt =>
-               opt.UseInMemoryDatabase("DatabaseContext"));
+            services.AddDbContext<DatabaseContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+          services.AddCors();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,10 +43,12 @@ namespace LionsEventTracker
             }
             else
             {
-                app.UseHsts();
+                //app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
+            app.UseCors(options =>
+                options.AllowAnyHeader()
+                .AllowAnyMethod() );
             app.UseMvc();
         }
     }
