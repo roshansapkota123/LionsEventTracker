@@ -5,19 +5,37 @@
         <h2>Please log in </h2>
       </div>
 
-      <form (ngSubmit)="logInUser($event) && f.form.valid" class="col s12 white" #f [noValidate]>
+      <form
+        (ngSubmit)="logInUser($event, f)"
+        class="col s12 white"
+        #f="ngForm"
+        [noValidate]>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">account_circle</i>
-            <input name="UserName" type="text" class="validate" required>
-            <label for="UserName">UserName</label>
+            <input
+              name="username"
+              type="text"
+              class="validate"
+              [(ngModel)]="user.UserName"
+              #username="ngModel"
+              required
+            />
+            <label for="username">UserName</label>
             <span class="helper-text" data-error="Required Field!" data-success=""></span>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">vpn_key </i>
-            <input class="validate" type="password" name="Password" required>
+            <input
+              class="validate"
+              type="password"
+              name="password"
+              [(ngModel)]="user.Password"
+              #password="ngModel"
+              required
+              />
             <label>Password</label>
             <span class="helper-text" data-error="Required Field!" data-success=""></span>
           </div>
@@ -25,7 +43,12 @@
 
         <div class="row">
           <div class="input-field col s14">
-            <button [disabled]=" " class="btn-large btn-submit" type="submit" value="Log-In">Log-In</button>
+            <button
+              class="btn-large btn-submit"
+              type="submit"
+              value="Log-In"
+              [disabled]="!f.valid"
+            >Log-In</button>
           </div>
 
           <div class="row">

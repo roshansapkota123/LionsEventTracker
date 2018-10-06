@@ -2,28 +2,29 @@ import { HttpClient } from '@angular/common/http';
 import { User } from './../share/user.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SERVER_ROOT } from '../config';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {
 
-  user: User;
+   }
 
-  ngOnInit() {
-      }
+  user: User = new User;
 
-  logInUser(e) {
+  logInUser(e, form) {
       e.preventDefault();
-      console.log(e);
-      const password = e.target.elements[1].value;
-      const Username = e.target.elements[0].value;
-      this.http.post<any>('https://localhost:44304/api/user/login',
-       {'Username': Username, 'password': password}).subscribe(
+      if (!form.valid) {
+        return;
+      }
+      console.log(this.user);
+
+      this.http.post<any>(`${SERVER_ROOT}/api/User/LogIn`, this.user).subscribe(
          response => {
            console.log(response);
          }
