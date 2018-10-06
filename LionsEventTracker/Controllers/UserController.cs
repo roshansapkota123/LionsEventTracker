@@ -21,14 +21,6 @@ namespace LionsEventTracker.Controllers
         public UserController(DatabaseContext context)
         {
             _context = context;
-
-            if (_context.Users.Count() == 0)
-            {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Users.Add(new User { });
-                _context.SaveChanges();
-            }
         }
 
 
@@ -128,9 +120,9 @@ namespace LionsEventTracker.Controllers
         //    _context.SaveChanges();
         //    return Json(dbUser);
         //}
-        public IActionResult LogIn(User user)
+        public IActionResult LogIn([FromBody] User user)
         {
-            var userInDb = _context.Users.Single(u => u.UserName == user.UserName && u.Password == user.Password);
+            var userInDb = _context.Users.SingleOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
             if(userInDb != null)
             {
                 return Ok(userInDb);
