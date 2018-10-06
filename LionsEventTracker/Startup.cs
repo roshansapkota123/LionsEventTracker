@@ -47,8 +47,11 @@ namespace LionsEventTracker
             }
            // app.UseHttpsRedirection();
             app.UseCors(options =>
-                options.AllowAnyHeader()
-                .AllowAnyMethod() );
+                options
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                );
             app.UseMvc();
         }
     }
