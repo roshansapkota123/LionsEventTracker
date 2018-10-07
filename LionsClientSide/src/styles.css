@@ -1,3 +1,5 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 div.sm-jumbotron{
   margin: 0px;
   padding: 2rem;
