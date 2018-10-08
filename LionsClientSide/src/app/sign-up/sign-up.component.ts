@@ -30,9 +30,9 @@ signUpUser(e, form) {
            console.log(response);
          },
          data => {
-          this.router.navigate(['/login']);
-           }
-           );
+        this.router.navigate(['/login']);
+         }
+         );
     }
 
 }
