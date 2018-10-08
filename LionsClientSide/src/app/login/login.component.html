@@ -1,13 +1,15 @@
 <div class="row">
   <!-- <div class="col s5 offset-s3"> -->
     <div class="card">
-      <div class="sm-jumbotron center-alignment">
-        <h2>Please log in </h2>
+        <div class="sign">
+            <header>Welcome To Lions Event</header>
+
       </div>
+
 
       <form
         (ngSubmit)="logInUser($event, f)"
-        class="col s12 white"
+        class="login-form col s12 white"
         #f="ngForm"
         [noValidate]>
         <div class="row">
@@ -61,5 +63,3 @@
       </form>
     </div>
   </div>
-<!-- </div>
- -->

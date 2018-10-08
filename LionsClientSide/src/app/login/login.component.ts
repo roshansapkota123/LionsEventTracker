@@ -29,6 +29,7 @@ export class LoginComponent {
            console.log(response);
          }
        );
+       this.router.navigate(['/home']);
     }
     }
 

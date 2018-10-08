@@ -1,0 +1,16 @@
+ .card{
+  width:s12;
+  height:300px;
+  flex: content;
+  text-align: center;
+  left: 10%;
+}
+
+.sign{
+  text-align: center;
+  font-size: 40px;
+  font-display: bold;
+  font-style: italic;
+  text-shadow: 7px 7px 7px #000000;
+}
+

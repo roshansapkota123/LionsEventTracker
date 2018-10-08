@@ -1,0 +1,73 @@
+<div class="uploadfile">
+  <div class="row1">
+    <div class="sm-jumbotron center-align">
+      Welcome to Lions Event Create Page:
+    </div>
+  </div>
+
+  <form class="form" >
+
+
+      <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">event_name</i>
+            <textarea id="textarea1" class="materialize-textarea"></textarea>
+            <label for="textarea1">
+              Event Name</label>
+          </div>
+        </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">access_time</i>
+        <input type="time">
+        <label for="textarea1">
+          Event Time</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">date_range</i>
+        <input type="date">
+        <label for="textarea1">
+          Event Date</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">place</i>
+        <textarea id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">
+          Venue</label>
+      </div>
+    </div>
+
+    <div class="row2">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">
+            Describe Event</label>
+          </div>
+      </div>
+
+    <div class="file-field input-field col s6">
+      <div class="file-path-wrapper">
+        <i class="material-icons prefix">upload_file</i>
+        <input class="file-path validate" type="text" placeholder="Upload File/Image">
+        <input type="file" multiple>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="input-field col s14">
+        <a [routerLink]="['/home']"><button class="btn-large btn-submit">Post</button>
+        </a>
+      </div>
+    </div>
+
+  </form>
+</div>

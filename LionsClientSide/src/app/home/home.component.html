@@ -4,18 +4,12 @@
     <div class="card-tabs">
           <ul class="tabs tabs-fixed-width">
             <li class="tab"> <a [routerLink]="['/home']">Home</a></li>
-            <li class="tab"> <a [routerLink]="['/signup']">SignUp</a></li>
+            <li class="tab"> <a [routerLink]="['/eventcreate']">Create Event</a></li>
             <li class="tab"> <a [routerLink]="['/login']">LogOut</a></li>
-
-            <ul>
-                <li *ngFor="let user of user">
-                    {{user.username}} ({{user.firstName}} {{user.lastName}})
-                </li>
-            </ul>
-
           </ul>
-        </div>
-        </div>
 
+        </div>
+        </div>
+        <h2 style="font-size:50; width: 100; ">Welcome to Lions Events Tracker <br>Homepage</h2>
 
 </body>

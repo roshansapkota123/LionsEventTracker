@@ -6,6 +6,18 @@
   top:40%;
   margin-left:-195px;
   margin-top:-225px;
+ }
+ .sign{
+   height: 70px;
+   text-align: center;
+  font-size: 35px;
+  font-display: bold;
+  font-style: italic;
+  text-shadow: 7px 7px 7px #000000;
+  background-color: #666a6d;
+   color: white;
 
  }
+
+
 

@@ -1,0 +1,19 @@
+.uploadfile{
+  background-color: white;
+  height: 1010px;
+  width: 700px;
+  margin-left: 125px;
+
+}
+.row1{
+  text-align: center;
+ font-size: 35px;
+ font-display: bold;
+ font-style: italic;
+ text-shadow: 7px 7px 7px #000000;
+ background-color: #666a6d;
+ color: white;
+}
+.row2{
+  width:700px;height:150px;
+}
