@@ -1,21 +1,12 @@
-
+<!--  <div class="body"></div>
   <div class="row" >
   <div class="col s7 offset-s2">
-    <div class="card" style="
-    width:s12;
-    height:300px;
-    flex: content;
-    text-align: center;
-      ">
+    <div class="card">
+     <div class="sign">
       <div class="sm-jumbotron center-align">
-        <h2 style="
-   text-align: center;
-   font-size: px;
-   font-display: bold;
-   font-style: italic;
-   text-shadow: 7px 7px 7px #000000;
-        ">Lions
+       <h2>Lions
           Sign-Up</h2>
+      </div>
       </div>
 
       <form class="col s12 white "
@@ -38,16 +29,14 @@
             data-error="Required Field!"
             data-success=""></span>
           </div>
-        </div>
 
-        <div class="row">
           <div class="input-field col s8">
             <i class="material-icons prefix">person</i>
             <input class="validate"
             type="text" name="LastName"
             #LastName="ngModel"
             [(ngModel)]="user.LastName"
-            required
+            requiredy
             >
             <label>Last Name</label>
             <span class="helper-text"
@@ -122,4 +111,65 @@
     </div>
   </div>
 </div>
+ -->
 
+
+ <div id="bg"></div>
+<form (ngSubmit)="signUpUser($event, f)" #f="ngForm" [noValidate]>
+
+  <div class="fl">
+   <div class="input-field col s12">
+  <div class="a">
+      <div class="input-field col s6">
+    <input type="text" id="" class="validate" placeholder="First Name" name="FirstName" #FirstName="ngModel"
+      [(ngModel)]="user.FirstName" required>
+    <span class="helper-text" data-error="Required Field!" data-success="">
+    </span>
+  </div>
+  </div>
+
+  <div class="b">
+      <div class="input-field col s6">
+    <input type="text" id="" class="validate" placeholder="Last Name" name="LastName" #LastName="ngModel" [(ngModel)]="user.LastName"
+      required>
+    <span class="helper-text" data-error="Required Field!" data-success=""></span>
+  </div>
+</div>
+  </div>
+  </div>
+
+  <div class="up">
+      <div class="input-field col s12">
+  <div class="c">
+      <div class="input-field col s6">
+    <input type="text" id="" class="validate" placeholder="UserName" name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName"
+      required>
+    <span class="helper-text" data-error="Required Field!" data-success=""></span>
+  </div>
+  </div>
+
+  <div class="d">
+      <div class="input-field col s6">
+    <input type="password" class="validate" id="" placeholder="password" name="Password" #Password="ngModel"
+      [(ngModel)]="user.Password" required minlength="6">
+    <span class="helper-text" data-error="Required Field! Minimum 6 character" data-success=""></span>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="e">
+      <div class="input-field col s6">
+      <input id="" placeholder="email" class="validate" type="email" name="email" #Email="ngModel" [(ngModel)]="user.Email"
+     required>
+   <span class="helper-text" data-error="Invalid Email!" data-success="">
+   </span>
+ </div>
+ </div>
+
+  <button class="btn-large btn-submit" type="submit" value="Sign-Up" [disabled]="!f.valid"> Sign-Up</button>
+  <br>
+  <br>
+
+  <a [routerLink]="['/landingpage']"><button class="btn-large btn-submit" type="submit" value="Back">Back</button> </a>
+</form>

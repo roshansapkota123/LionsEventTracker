@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Http;
 
 namespace LionsEventTracker.Controllers
 {
@@ -125,9 +126,12 @@ namespace LionsEventTracker.Controllers
             var userInDb = _context.Users.SingleOrDefault(u => u.UserName == user.UserName && u.Password == GetHashedPassword(user.Password, u.salt));
             if(userInDb != null)
             {
+                HttpContext.Session.SetString("Id", userInDb.Id.ToString());
+                HttpContext.Session.SetString("UserName", userInDb.UserName);
                 return Ok(userInDb);
             }
-            return NotFound();
+            return NotFound("USerName or Password is incorrect");
+            
         }
 
         // PUT api/<controller>/5
@@ -139,7 +143,7 @@ namespace LionsEventTracker.Controllers
             {
                 return NotFound();
             }
-            userInDb.FirstName = user.FirstName;
+            userInDb.FirstName = user.FirstName; 
             userInDb.LastName = user.LastName;
             userInDb.Email = user.Email;
             userInDb.UserName = user.UserName;
@@ -165,6 +169,11 @@ namespace LionsEventTracker.Controllers
             return NoContent();
         }
 
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return Ok();
 
+        }
     }
 }

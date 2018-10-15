@@ -51,7 +51,7 @@ namespace LionsEventTracker.Controllers
         // create event
         // POST api/<controller>
         [HttpPost]
-        public void Index(Event evnt)
+        public void CreateEvent(Event evnt)
         {
             _context.Events.Add(evnt);
             _context.SaveChanges();
@@ -115,4 +115,4 @@ namespace LionsEventTracker.Controllers
         }
 
     }
-}
+} 

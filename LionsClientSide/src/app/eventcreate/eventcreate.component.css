@@ -1,37 +1,21 @@
-/* .card {
-  position:absolute;
-  width:400px;
-  height:100px;
-  left:50%;
-  top:40%;
-  margin-left:-195px;
-  margin-top:-225px;
+/* .uploadfile{
+  background-color: white;
+  height: 1010px;
+  width: 700px;
+  margin-left: 125px;
 
- }
-
- .sign{
-  height: 70px;
+}
+.row1{
   text-align: center;
  font-size: 35px;
  font-display: bold;
  font-style: italic;
  text-shadow: 7px 7px 7px #000000;
  background-color: #666a6d;
-  color: white;
-
+ color: white;
 }
-.body{
-	position: absolute;
-	top: -20px;
-	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	width: auto;
-	height: auto;
-	 background-image: url("C:\Users\User\Documents\Projects\LionsEventTracker\LionsClientSide\src\assets\s.jpg");
-  background-position: center;
-	-webkit-filter: blur(0px);
-	z-index: 0;
+.row2{
+  width:700px;height:150px;
 }
  */
  @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700);
@@ -55,7 +39,7 @@
  }
 
  form {
-  top: calc(50% - 160px);
+  top: calc(50% - 310px);
 	left: calc(50% - 105px);
   position: absolute;
    width: 295px;
@@ -120,7 +104,10 @@
 
 .info1s{
   color: black !important;
-
     }
+
+ form textarea{
+  height: 110px;
+}
 
 
