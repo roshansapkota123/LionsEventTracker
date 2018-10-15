@@ -18,61 +18,103 @@
           Sign-Up</h2>
       </div>
 
-      <form class="col s12 white " #userSignUpForm="ngForm">
+      <form class="col s12 white "
+      (ngSubmit)="signUpUser($event, f)"
+      #f="ngForm"
+      [noValidate]>
 
         <div class="row">
           <div class="input-field col s8">
             <i class="material-icons prefix">person</i>
-            <input class="validate" type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="user.FirstName"
-              required>
+            <input class="validate"
+            type="text"
+            name="FirstName"
+            #FirstName="ngModel"
+            [(ngModel)]="user.FirstName"
+            required
+            >
             <label>First Name</label>
-            <span class="helper-text" data-error="Required Field!" data-success=""></span>
+            <span class="helper-text"
+            data-error="Required Field!"
+            data-success=""></span>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s8">
             <i class="material-icons prefix">person</i>
-            <input class="validate" type="text" name="LastName" #LastName="ngModel" [(ngModel)]="user.LastName"
-              required>
+            <input class="validate"
+            type="text" name="LastName"
+            #LastName="ngModel"
+            [(ngModel)]="user.LastName"
+            required
+            >
             <label>Last Name</label>
-            <span class="helper-text" data-error="Required Field!" data-success=""></span>
+            <span class="helper-text"
+            data-error="Required Field!"
+            data-success="">
+          </span>
           </div>
          </div>
 
         <div class="row">
           <div class="input-field col s8">
             <i class="material-icons prefix">email</i>
-            <input class="validate" type="email" name="email" #Email="ngModel" [(ngModel)]="user.Email" required>
+            <input class="validate"
+            type="email"
+            name="email"
+            #Email="ngModel"
+            [(ngModel)]="user.Email"
+            required>
             <label>Email</label>
-            <span class="helper-text" data-error="Invalid Email!" data-success=""></span>
+            <span class="helper-text"
+            data-error="Invalid Email!"
+            data-success="">
+          </span>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s8">
             <i class="material-icons prefix">account_circle</i>
-            <input class="validate" type="text" name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName"
-              required>
+            <input class="validate"
+            type="text"
+            name="UserName"
+            #UserName="ngModel"
+            [(ngModel)]="user.UserName"
+            required>
             <label>UserName</label>
-            <span class="helper-text" data-error="Required Field!" data-success=""></span>
+            <span class="helper-text"
+            data-error="Required Field!"
+            data-success="">
+          </span>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s8">
             <i class="material-icons prefix">vpn_key </i>
-            <input class="validate" type="password" name="Password" #Password="ngModel" [(ngModel)]="user.Password"
-              required minlength="4">
+            <input class="validate"
+            type="password"
+            name="Password"
+            #Password="ngModel"
+            [(ngModel)]="user.Password"
+            required minlength="">
             <label>Password</label>
-            <span class="helper-text" data-error="Required Field! Minimum 6 character" data-success=""></span>
+            <span class="helper-text"
+            data-error="Required Field! Minimum 6 character"
+            data-success=""></span>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s4">
-          <button class="btn-large btn-submit" type="submit">
-                Sign-Up</button>
+          <button
+          class="btn-large btn-submit"
+          type="submit"
+          value="Sign-Up"
+          [disabled]="!f.valid"
+          > Sign-Up</button>
 
           </div>
         </div>
