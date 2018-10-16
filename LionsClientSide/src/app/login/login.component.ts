@@ -27,6 +27,7 @@ export class LoginComponent {
       this.http.post<any>(`${SERVER_ROOT}/api/User/LogIn`, this.user).subscribe(
          response => {
            console.log(response);
+           this.router.navigate(['/home']);
          }
        );
     }

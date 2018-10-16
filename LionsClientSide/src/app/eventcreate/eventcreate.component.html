@@ -1,0 +1,137 @@
+<!-- <div class="uploadfile">
+  <div class="row1">
+    <div class="sm-jumbotron center-align">
+      Welcome to Lions Event Create Page:
+    </div>
+  </div>
+
+  <form class="form" >
+
+
+      <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">event_name</i>
+            <textarea id="textarea1" class="materialize-textarea"></textarea>
+            <label for="textarea1">
+              Event Name</label>
+          </div>
+        </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">access_time</i>
+        <input type="time">
+        <label for="textarea1">
+          Event Time</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">date_range</i>
+        <input type="date">
+        <label for="textarea1">
+          Event Date</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">place</i>
+        <textarea id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">
+          Venue</label>
+      </div>
+    </div>
+
+    <div class="row2">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">
+            Describe Event</label>
+          </div>
+      </div>
+
+    <div class="file-field input-field col s6">
+      <div class="file-path-wrapper">
+        <i class="material-icons prefix">upload_file</i>
+        <input class="file-path validate" type="text" placeholder="Upload File/Image">
+        <input type="file" multiple>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="input-field col s14">
+        <a [routerLink]="['/home']"><button class="btn-large btn-submit">Post</button>
+        </a>
+      </div>
+    </div>
+
+  </form>
+</div>
+ -->
+
+ <div id="bg"></div>
+ <form (ngSubmit)="createEvent($event, f)"  #f="ngForm" [noValidate]>
+
+  <div class="a">
+  <input type="text"
+  name="Name"
+  placeholder="Name Of Event"
+  [(ngModel)]="event.Name"
+  #Name="ngModel"
+  class="event"
+   required >
+  </div>
+
+  <div class="b">
+    <input type="date"
+    name="Date"
+    placeholder="Date Of Event"
+    [(ngModel)]="event.Name"
+    #Date="ngModel"
+    class="Date"
+     required >
+       </div>
+
+  <div class="c">
+    <input type="time"
+     name="Time"
+     placeholder="Time Of Event"
+     [(ngModel)]="event.Time"
+     #username="ngModel"
+     class="Time"
+       required >
+           </div>
+
+  <div class="d">
+     <input type="text"
+      name="Venue"
+      placeholder="Venue"
+      [(ngModel)]="event.Venue"
+      #Venue="ngModel"
+      class="Venue"
+        required >
+            </div>
+
+  <div class="d">
+    <textarea type="text"
+    name="Description"
+    placeholder="Description"
+   [(ngModel)]="event.Description"
+    #Venue="ngModel"
+   class="Description"
+    required ></textarea>
+</div>
+
+<button class="btn-large btn-submit" type="submit" value="Post" [disabled]="!f.valid">Post</button>
+<br>
+<br>
+
+<a [routerLink]="['/landingpage']"><button class="btn-large btn-submit" type="submit" value="Back">Back</button> </a>
+
+</form>
+
+

@@ -28,10 +28,11 @@ signUpUser(e, form) {
       this.http.post<any>(`${SERVER_ROOT}/api/User/SignUp`, this.user).subscribe(
          response => {
            console.log(response);
+           this.router.navigate(['/login']);
          },
-         data => {
+         /* data => {
         this.router.navigate(['/login']);
-         }
+         } */
          );
     }
 
