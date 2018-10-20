@@ -8,20 +8,17 @@ import { LoginComponent } from './login/login.component';
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
-import { ValueComponent } from './value/value.component';
 import { EventcreateComponent } from './eventcreate/eventcreate.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 const appRoutes: Routes = [
-  {path: '', component: LandingpageComponent},
+  {path: '', component: HomeComponent},
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'landingpage', component: LandingpageComponent },
-
-  { path: 'eventcreate', component: EventcreateComponent }
-
-  // {path: '', redirectTo:'/log-in', pathMatch:'full' },
-
+  { path: 'eventcreate', component: EventcreateComponent },
   ];
 
 
@@ -32,9 +29,10 @@ const appRoutes: Routes = [
       SignUpComponent,
       LoginComponent,
       HomeComponent,
-      ValueComponent,
       EventcreateComponent,
-      LandingpageComponent
+      LandingpageComponent,
+      HeaderComponent,
+      FooterComponent
    ],
    imports: [
       BrowserModule,

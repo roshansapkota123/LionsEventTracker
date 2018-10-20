@@ -92,7 +92,7 @@ namespace LionsEventTracker.Controllers
             return hashed;
         }
 
-        
+
         //[HttpPost]
         //[ActionName("AddEvent")]
         //public void AddEvent(int userId, int eventId)
@@ -121,6 +121,8 @@ namespace LionsEventTracker.Controllers
         //    _context.SaveChanges();
         //    return Json(dbUser);
         //}
+        [HttpPost]
+        [ActionName("LogIn")]
         public IActionResult LogIn([FromBody] User user)
         {
             var userInDb = _context.Users.SingleOrDefault(u => u.UserName == user.UserName && u.Password == GetHashedPassword(user.Password, u.salt));

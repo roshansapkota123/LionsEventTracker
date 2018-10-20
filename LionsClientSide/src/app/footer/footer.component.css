@@ -1,0 +1,9 @@
+.footer {
+  padding: 10px;
+  width: 100%;
+  overflow: hidden;
+  background-image: url("C:\Users\User\Documents\Projects\LionsEventTracker\LionsClientSide\src\assets\s.jpg");
+  position: sticky;
+  position: -webkit-sticky;
+  bottom: 0;
+}

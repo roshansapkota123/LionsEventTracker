@@ -1,14 +1,51 @@
 <body>
-  <div class="container">
+<!-- navbar -->
+<!-- <div class="navbar">
+  <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="">About</a>
+    <a href="#">Create Event</a>
+    <a href="login" class="right">LogOut</a>
 
-    <div class="card-tabs">
-          <ul class="tabs tabs-fixed-width">
-            <li class="tab"> <a [routerLink]="['/home']">Home</a></li>
-            <li class="tab"> <a [routerLink]="['/eventcreate']">Create Event</a></li>
-            <li class="tab"> <a [routerLink]="['/login']">LogOut</a></li>
-          </ul>
-        </div>
-        </div>
-        <h2 style="font-size:50; width: 100; ">Welcome to Lions Events Tracker <br>Homepage</h2>
+  </div> -->
+  <app-header></app-header>
 
+<!--   Header -->
+<div class="header">
+  <h1>LionsEventTracker</h1>
+  <p>Don't miss any Event.</p>
+</div>
+
+
+<div class="row">
+<!--   Upcoming Events -->
+  <div class="side">
+      <h2>Upcoming Events:</h2>
+      <p>Lorem ipsum dolor sit ame.</p>
+<!--       <div class="fakeimg" style="height:60px;">Image</div><br>
+ -->
+      <p>Lorem ipsum dolor sit ame.</p>
+
+      <p>Lorem ipsum dolor sit ame.</p>
+  </div>
+
+<!--   Latest Events -->
+ <div class="main">
+      <h2>TITLE HEADING</h2>
+      <h5>Title description, Dec 7, 2017</h5>
+      <div class="fakeimg" style="height:200px;"></div>
+      <p>Some text..</p>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      <br>
+      <h2>TITLE HEADING</h2>
+      <h5>Title description, Sep 2, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>Some text..</p>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <h2>Footer</h2>
+</div>
 </body>
