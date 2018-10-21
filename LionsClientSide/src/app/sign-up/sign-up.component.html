@@ -4,8 +4,11 @@
 
 <div id="bg">
 </div>
-
-<div class="container">
+<div class="navbar">
+    <label ><i>LionsEventTracker</i></label>
+    <a href="about" class="right">About</a>
+</div>
+<div class="container" >
   <div class="card card-container">
 
     <img id="profile-img"
@@ -34,7 +37,7 @@
       <input type="text"
       id="inputLastName"
       class="form-control"
-      placeholder="Last Name"
+      placeholder="Last Name *"
       name="LastName"
       [(ngModel)]="user.LastName"
       #LastName="ngModel"
@@ -53,25 +56,33 @@
     <!-- Email -->
       <input type="email"
       id="inputEmail"
+      email
       class="form-control"
       placeholder="Email *"
-      name="Email"
+      name="email"
       #Email="ngModel"
       [(ngModel)]="user.Email"
       required>
+     <span *ngIf="Email.invalid && Email.touched">
+     Invalid Email
+     </span>
 
     <!-- Password -->
       <input type="password"
       id="inputPassword"
       class="form-control"
-      placeholder="Password"
+      placeholder="Password *"
       name="Password"
       [(ngModel)]="user.Password"
       #password="ngModel"
+      minlength="6"
       required>
+      <span *ngIf="password.invalid && password.touched">
+      Minimum 6 character
+      </span>
+
 
     <!-- SignUpButton -->
-
       <button class="btn btn-lg btn-primary btn-block btn-submit"
       type="submit"
       [disabled]="!f.valid"

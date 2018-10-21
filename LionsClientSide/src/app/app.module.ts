@@ -12,8 +12,9 @@ import { EventcreateComponent } from './eventcreate/eventcreate.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: LoginComponent},
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },

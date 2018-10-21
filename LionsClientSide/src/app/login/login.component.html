@@ -5,9 +5,13 @@
 <div id="bg">
 </div>
 
+<div class="navbar">
+    <label ><i>LionsEventTracker</i></label>
+    <a href="about" class="right">About</a>
+</div>
+
 <div class="container">
   <div class="card card-container">
-
     <img id="profile-img"
     class="profile-img-card"
     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
@@ -38,6 +42,11 @@
       #password="ngModel"
       required>
 
+      <!--Log in fail error message-->
+     <div id="logInError" class="error" [hidden]="!isError">
+     <Label>Invalid Username or password</Label>
+     </div>
+
       <!-- CheckBox -->
       <div id="remember"
       class="checkbox">
@@ -62,4 +71,5 @@
       Don't have account ? Click Here!
     </a>
   </div>
-</div>
+  </div>
+

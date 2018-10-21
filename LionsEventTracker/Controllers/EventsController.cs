@@ -31,15 +31,20 @@ namespace LionsEventTracker.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Event>> Index()
+        public ActionResult<List<Event>> getEvents()
         {
-            return _context.Events.ToList();
+            var eventsLists = _context.Events.ToList();
+
+            var events = eventsLists.OrderByDescending(eventList => eventList.Date).
+                ThenByDescending(eventsList => eventsList.Time);
+
+            return events.ToList();
         }
 
         // GET api/<controller>/5
    
         [HttpGet("{id}")]
-        public ActionResult<Event> Index(int? id)
+        public ActionResult<Event> getEventsById(int? id)
         {
             var evnt = _context.Events.Include(x => x.eventUsers).Where(x => x.Id == id).FirstOrDefault();
             if (evnt == null)

@@ -1,51 +1,69 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <body>
-<!-- navbar -->
-<!-- <div class="navbar">
-  <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="">About</a>
-    <a href="#">Create Event</a>
-    <a href="login" class="right">LogOut</a>
 
-  </div> -->
-  <app-header></app-header>
+  <nav id="navbar" class="navbar">
+    <a (click)="logout ($event)" class="right">LogOut</a>
+    <a href="about" class="right">About</a>
+    <a href="eventcreate" class="right">Create Event</a>
+    <a href="home" class="right"> Home</a>
+    <label ><i>LionsEventTracker</i></label>
+  </nav>
 
-<!--   Header -->
-<div class="header">
-  <h1>LionsEventTracker</h1>
-  <p>Don't miss any Event.</p>
-</div>
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-3">
+
+        <!-- Upcoming Events -->
+         <div class="UpcmgEvnt">
+          <p>Upcomping Eevents</p>
+        </div>
+      </div>
+
+      <!-- Recent Events -->
+      <div class="col-sm-9">
+          <div class="img">
 
 
-<div class="row">
-<!--   Upcoming Events -->
-  <div class="side">
-      <h2>Upcoming Events:</h2>
-      <p>Lorem ipsum dolor sit ame.</p>
-<!--       <div class="fakeimg" style="height:60px;">Image</div><br>
- -->
-      <p>Lorem ipsum dolor sit ame.</p>
+            </div>
+     <div class="col-sm-7">
+        <div class="RecentEvent">
+          <p>Recent Events</p>
+        </div>
 
-      <p>Lorem ipsum dolor sit ame.</p>
+        <div class="card">
+          <div *ngFor="let event of events" class="card-body">
+            <div class="card-text">
+
+              <h1>{{event.name}}</h1>
+
+              <p> Date of Event: {{event.date}} </p>
+
+              <p> Time of Event: {{event.time}}</p>
+
+              <p> Venue: {{event.venue}}</p>
+
+              <p> {{event.description}}</p>
+              <br>
+              <br>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--  Subscribed Events -->
+       <div class="col-sm-2">
+        <div class="SubscbEvent">
+          <p>Subscribed Events</p>
+        </div>
+      </div>
+    </div>
+
+    </div>
   </div>
-
-<!--   Latest Events -->
- <div class="main">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg" style="height:200px;"></div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-      <br>
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-  </div>
-</div>
-
-<!-- Footer -->
-<div class="footer">
-  <h2>Footer</h2>
-</div>
 </body>

@@ -12,10 +12,12 @@ import { SERVER_ROOT } from '../config';
 export class LoginComponent {
 
   constructor(private router: Router, private http: HttpClient) {
-
+    this.user.UserName = '';
+    this.user.Password = '';
    }
 
   user: User = new User;
+  isError = false;
 
   logInUser(e, form) {
       e.preventDefault();
@@ -25,10 +27,12 @@ export class LoginComponent {
       console.log(this.user);
 
       this.http.post<any>(`${SERVER_ROOT}/api/User/LogIn`, this.user).subscribe(
-         response => {
-           console.log(response);
-           this.router.navigate(['/home']);
-         }
-       );
-    }
+         user => {
+          console.log('got data from server', user);
+          localStorage.setItem('user', JSON.stringify(user));
+          this.router.navigate(['/home']);
+         },
+         error => this.isError = true
+      );
+        }
     }

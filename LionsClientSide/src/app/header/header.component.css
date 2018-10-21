@@ -1,13 +1,10 @@
 .navbar {
-  width: 100%;
   overflow: hidden;
-  background-image: url("C:\Users\User\Documents\Projects\LionsEventTracker\LionsClientSide\src\assets\s.jpg");
+  background-image: linear-gradient( rgb(12, 97, 33),rgb(104, 145, 162));
   position: sticky;
   position: -webkit-sticky;
-  top: 0;
-
-}
- .navbar a {
+ }
+.navbar a {
   float: left;
   display: block;
   color: white;
@@ -15,18 +12,26 @@
   padding: 24px 30px;
   text-decoration: none;
   cursor: pointer;
+  font-size: 15px;
 }
 
- .navbar a.right {
+.navbar a.right {
   float: right;
 }
 
 .navbar a:hover {
-  background-color: #ddd;
-  color: black;
+  color:lightgray;
 }
 
 .navbar a.active {
   color: white;
+}
+
+.navbar label {
+  font-size: 54px;
+  color: white;
+  text-align: left;
+  font-family: Forte;
+  margin-top: -10px;
 }
 
