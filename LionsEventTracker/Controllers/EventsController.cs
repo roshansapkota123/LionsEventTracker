@@ -31,7 +31,7 @@ namespace LionsEventTracker.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Event>> Index()
+        public ActionResult<List<Event>> GetEvents()
         {
             return _context.Events.ToList();
         }
@@ -39,7 +39,7 @@ namespace LionsEventTracker.Controllers
         // GET api/<controller>/5
    
         [HttpGet("{id}")]
-        public ActionResult<Event> Index(int? id)
+        public ActionResult<Event> GetEventsById(int? id)
         {
             var evnt = _context.Events.Include(x => x.eventUsers).Where(x => x.Id == id).FirstOrDefault();
             if (evnt == null)
@@ -51,7 +51,9 @@ namespace LionsEventTracker.Controllers
         // create event
         // POST api/<controller>
         [HttpPost]
-        public void CreateEvent(Event evnt)
+        [ActionName("CreateEvent")]
+
+        public void CreateEvent([FromBody]Event evnt)
         {
             _context.Events.Add(evnt);
             _context.SaveChanges();

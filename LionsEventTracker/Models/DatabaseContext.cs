@@ -15,6 +15,11 @@ namespace LionsEventTracker.Models
            : base(options)
         {
         }
+
+        public DatabaseContext()
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -31,5 +36,7 @@ namespace LionsEventTracker.Models
                .WithMany(e => e.eventUsers)
                .HasForeignKey(f => f.eventId);
         }
+
+       
     }
 }

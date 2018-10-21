@@ -11,10 +11,15 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
 
 namespace LionsEventTracker.Controllers
 {
     [Route("api/[controller]/[action]")]
+    
     public class UserController : Controller
     {
         private readonly DatabaseContext _context;
@@ -26,7 +31,7 @@ namespace LionsEventTracker.Controllers
 
 
         // GET: api/<controller>
-        [HttpGet]
+        [HttpGet, Authorize ]
         public async Task<ActionResult<List<User>>> GetAllUser()
         {
             var user = await _context.Users.ToListAsync();
@@ -68,6 +73,7 @@ namespace LionsEventTracker.Controllers
                 }
                 
                 user.Password = this.GetHashedPassword(user.Password, salt);
+                user.IsAdmin = false;
                 user.salt = salt;
                 _context.Users.Add(user);
                 _context.SaveChanges();
@@ -92,7 +98,7 @@ namespace LionsEventTracker.Controllers
             return hashed;
         }
 
-        
+
         //[HttpPost]
         //[ActionName("AddEvent")]
         //public void AddEvent(int userId, int eventId)
@@ -121,17 +127,35 @@ namespace LionsEventTracker.Controllers
         //    _context.SaveChanges();
         //    return Json(dbUser);
         //}
+        [HttpPost]
+        [ActionName("LogIn")]
         public IActionResult LogIn([FromBody] User user)
         {
             var userInDb = _context.Users.SingleOrDefault(u => u.UserName == user.UserName && u.Password == GetHashedPassword(user.Password, u.salt));
             if(userInDb != null)
             {
-                HttpContext.Session.SetString("Id", userInDb.Id.ToString());
-                HttpContext.Session.SetString("UserName", userInDb.UserName);
-                return Ok(userInDb);
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: "http://localhost:44304",
+                    audience: "http://localhost:4200",
+                    claims: new List<Claim>(),
+                    expires: DateTime.Now.AddMinutes(5),
+                    signingCredentials: signinCredentials
+                );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+
+                userInDb.Token = tokenString;
+                _context.SaveChanges();
+                return Ok(new { Token = tokenString });
+                //HttpContext.Session.SetString("Id", userInDb.Id.ToString());
+                //HttpContext.Session.SetString("UserName", userInDb.UserName);
+                //  return Ok(userInDb);
             }
-            return NotFound("USerName or Password is incorrect");
-            
+            // return NotFound("USerName or Password is incorrect");
+            return Unauthorized();
         }
 
         // PUT api/<controller>/5
