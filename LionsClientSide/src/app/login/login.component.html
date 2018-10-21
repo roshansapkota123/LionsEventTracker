@@ -1,0 +1,77 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+
+<div id="bg">
+</div>
+
+<div class="navbar">
+    <label ><i>LionsEventTracker</i></label>
+    <a href="about" class="right">About</a>
+</div>
+
+<div class="container">
+  <div class="card card-container">
+    <img id="profile-img"
+    class="profile-img-card"
+    src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+
+    <p id="profile-name" class="profile-name-card"></p>
+
+   <form (ngSubmit)="logInUser($event, f)"
+    class="form-signin"
+    #f="ngForm" [noValidate]>
+
+      <!--  UserName -->
+      <input type="text"
+      id="inputUserName"
+      class="form-control"
+      placeholder="Username"
+      name="username"
+      [(ngModel)]="user.UserName"
+      #username="ngModel"
+      required>
+
+      <!-- Password -->
+      <input type="password"
+      id="inputPassword"
+      class="form-control"
+      placeholder="Password"
+      name="Password"
+      [(ngModel)]="user.Password"
+      #password="ngModel"
+      required>
+
+      <!--Log in fail error message-->
+     <div id="logInError" class="error" [hidden]="!isError">
+     <Label>Invalid Username or password</Label>
+     </div>
+
+      <!-- CheckBox -->
+      <div id="remember"
+      class="checkbox">
+      <label>
+      <input type="checkbox"
+      value="remember-me">
+      Remember me
+      </label>
+      </div>
+
+      <!-- SubmitButton -->
+      <button class="btn btn-lg btn-primary btn-block btn-signin"
+      type="submit"
+      [disabled]="!f.valid"
+      value="Log-In">
+      LogIn
+      </button>
+   </form>
+
+    <!-- forSignUpLink -->
+    <a href="signup" class="signup">
+      Don't have account ? Click Here!
+    </a>
+  </div>
+  </div>
+
