@@ -3,14 +3,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <body>
 
   <nav id="navbar" class="navbar">
     <a (click)="logout ($event)" class="right">LogOut</a>
     <a href="about" class="right">About</a>
-    <a href="eventcreate" class="right">Create Event</a>
+    <a href="eventcreate" *ngIf="isAdmin" class="right">Create Event</a>
     <a href="home" class="right"> Home</a>
-    <label ><i>LionsEventTracker</i></label>
+    <label><i>LionsEventTracker</i></label>
   </nav>
 
   <div class="container-fluid">
@@ -19,19 +20,15 @@
       <div class="col-sm-3">
 
         <!-- Upcoming Events -->
-         <div class="UpcmgEvnt">
+        <div class="UpcmgEvnt">
           <p>Upcomping Eevents</p>
         </div>
       </div>
 
       <!-- Recent Events -->
       <div class="col-sm-9">
-          <div class="img">
-
-
-            </div>
-     <div class="col-sm-7">
-        <div class="RecentEvent">
+        <div class="col-sm-8">
+          <!--  <div class="RecentEvent">
           <p>Recent Events</p>
         </div>
 
@@ -53,16 +50,43 @@
 
             </div>
           </div>
-        </div>
+        </div>-->
 
-      </div>
-      <!--  Subscribed Events -->
-       <div class="col-sm-2">
-        <div class="SubscbEvent">
-          <p>Subscribed Events</p>
+
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Thumbnail label</h3>
+              <div class="card">
+                <div *ngFor="let event of events" class="card-body">
+                  <div class="card-text">
+
+                    <h1>{{event.name}}</h1>
+
+                    <p> Date of Event: {{event.date}} </p>
+
+                    <p> Time of Event: {{event.time}}</p>
+
+                    <p> Venue: {{event.venue}}</p>
+
+                    <p> {{event.description}}</p>
+                    <!-- <p><a href="" class="btn btn-primary" role="button" style="margin:10px;   background-color: rgb(93, 162, 192);">Subscribe</a>
+                      <a href="" class="btn btn-primary" role="button" style='background-color:forestgreen;'>Like</a></p> -->
+                      <button class="btn btn-primary" (click)="subscribe()" *ngIf="subscribed">Subscribed</button>
+                      <button class="btn btn-primary" (click)="subscribe()" *ngIf="!subscribed">Subscribe</button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Subscribed Events -->
+        <div class="col-sm-2">
+          <div class="SubscbEvent">
+            <p>Subscribed Events</p>
+          </div>
         </div>
       </div>
-    </div>
 
     </div>
   </div>

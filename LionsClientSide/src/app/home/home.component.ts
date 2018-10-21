@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SERVER_ROOT } from '../config';
 import { HttpClient } from '@angular/common/http';
-import { Event } from '../shared/event';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,10 +11,15 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   events: any[];
+  subscribed = false;
+  isAdmin = false;
   constructor(private http: HttpClient, private router: Router) {}
 
    ngOnInit() {
      const user = localStorage.getItem('user');
+     this.isAdmin = true; //JSON.parse(user).isAdmin;
+
+
      if (!user) {
       return this.router.navigate(['/login']);
      }
@@ -35,6 +39,11 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('user');
     return this.router.navigate(['/login']);
 
+  }
+
+  subscribe() {
+    console.log(this.subscribed);
+    this.subscribed = !this.subscribed;
   }
 
 }

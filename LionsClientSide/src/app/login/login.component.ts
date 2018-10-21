@@ -30,6 +30,7 @@ export class LoginComponent {
          user => {
           console.log('got data from server', user);
           localStorage.setItem('user', JSON.stringify(user));
+          localStorage.getItem('user');
           this.router.navigate(['/home']);
          },
          error => this.isError = true
