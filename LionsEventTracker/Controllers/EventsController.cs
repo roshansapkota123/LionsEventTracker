@@ -31,7 +31,7 @@ namespace LionsEventTracker.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public ActionResult<List<Event>> getEvents()
+        public ActionResult<List<Event>> GetEvents()
         {
             var eventsLists = _context.Events.ToList();
 
@@ -44,7 +44,7 @@ namespace LionsEventTracker.Controllers
         // GET api/<controller>/5
    
         [HttpGet("{id}")]
-        public ActionResult<Event> getEventsById(int? id)
+        public ActionResult<Event> GetEventsById(int? id)
         {
             var evnt = _context.Events.Include(x => x.eventUsers).Where(x => x.Id == id).FirstOrDefault();
             if (evnt == null)

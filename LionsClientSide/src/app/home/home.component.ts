@@ -17,7 +17,10 @@ export class HomeComponent implements OnInit {
 
    ngOnInit() {
      const user = localStorage.getItem('user');
-     this.isAdmin = true; //JSON.parse(user).isAdmin;
+     console.log('This is user');
+     debugger;
+     console.log(JSON.parse(user));
+     this.isAdmin = JSON.parse(user).isAdmin;
 
 
      if (!user) {

@@ -4,14 +4,16 @@ using LionsEventTracker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LionsEventTracker.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20181020164219_Token")]
+    partial class Token
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,16 +27,13 @@ namespace LionsEventTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Date")
-                        .IsRequired();
+                    b.Property<DateTime>("Date");
 
                     b.Property<string>("Description")
                         .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<string>("Organization");
 
                     b.Property<string>("Time")
                         .IsRequired();

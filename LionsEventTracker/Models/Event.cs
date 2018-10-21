@@ -15,14 +15,14 @@ namespace LionsEventTracker.Models
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Date is required.")]
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
        [Required(ErrorMessage = "Time is required.")]       
         public string Time { get; set; }
         [Required(ErrorMessage = "Venue is required.")]
         public string Venue { get; set; }
+        [Required(ErrorMessage = "Venue is required.")]
         public string Description { get; set; }
-
+        public string Organization { get; set; }
         public List<EventUser> eventUsers { get; set; }
     }
 }
