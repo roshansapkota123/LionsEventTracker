@@ -21,6 +21,10 @@ export class EventcreateComponent {
             return;
           }
           console.log(this.event);
+          const user = localStorage.getItem('user');
+          if (!user) {
+           return this.router.navigate(['/login']);
+          }
 
           this.http.post<any>(`${SERVER_ROOT}/api/Events/CreateEvent`, this.event).subscribe(
              response => {
@@ -30,4 +34,14 @@ export class EventcreateComponent {
            );
 
 }
+
+logout(e) {
+  e.preventDefault();
+
+  console.log('logging user out');
+  localStorage.removeItem('user');
+  return this.router.navigate(['/login']);
+
+}
+
  }

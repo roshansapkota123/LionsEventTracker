@@ -17,15 +17,12 @@ export class HomeComponent implements OnInit {
 
    ngOnInit() {
      const user = localStorage.getItem('user');
-     console.log('This is user');
-     debugger;
-     console.log(JSON.parse(user));
-     this.isAdmin = JSON.parse(user).isAdmin;
-
-
      if (!user) {
       return this.router.navigate(['/login']);
      }
+     console.log('This is user');
+   /*  console.log(JSON.parse(user)); */
+     this.isAdmin = JSON.parse(user).isAdmin;
 
     this.http.get<any>(`${SERVER_ROOT}/api/Events/getEvents`).subscribe(
       response => {

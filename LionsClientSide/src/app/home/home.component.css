@@ -1,6 +1,8 @@
  #navbar {
+  overflow: hidden;
   background-image: url(/src/assets/s.jpg);
-  position: fixed-top;
+  position: sticky;
+  position: -webkit-sticky;
  }
 #navbar a {
   float: left;

@@ -6,4 +6,5 @@ export class Event {
   Time: Time;
   Venue: string;
   Description: string;
+  Organization: string;
 }

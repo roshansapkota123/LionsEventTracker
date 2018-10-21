@@ -75,7 +75,6 @@ html {
   box-sizing: border-box;
 }
 
-<<<<<<< HEAD
 .form-signin #inputFirstName,
 .form-signin #inputLastName,
 .form-signin #inputUserName,
@@ -85,7 +84,7 @@ html {
   height: 44px;
   font-size: 16px;
 }
-=======
+
  #bg {
    position: fixed;
    left: 0;

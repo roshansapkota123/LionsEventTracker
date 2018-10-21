@@ -98,6 +98,8 @@ namespace LionsEventTracker.Controllers
             eventInDb.Date = evnt.Date;
             eventInDb.Time = evnt.Time;
             eventInDb.Venue = evnt.Venue;
+            eventInDb.Description = evnt.Description;
+            eventInDb.Organization = evnt.Organization;
 
             _context.Events.Update(eventInDb);
             _context.SaveChanges();
